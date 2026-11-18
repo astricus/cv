@@ -1,36 +1,55 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Space Portfolio — Konstantin Romanenko
 
-## Getting Started
+An interactive 3D portfolio built with Next.js and Three.js. A small solar system where each celestial object is a section of the CV: click a planet (or use the bottom nav) and the camera flies over to it, opening an info panel.
 
-First, run the development server:
+## Objects
+
+| Object | Section |
+| --- | --- |
+| Homeworld (earth-like planet) | About / leadership / languages |
+| Gas giant with rings | Experience |
+| Orbital station | Skills |
+| Comet with ion & dust tails | Education |
+| Comms satellite | Contact |
+
+## Tech
+
+- **Next.js 16** (App Router, TypeScript)
+- **three.js** via **@react-three/fiber**, **@react-three/drei** (textures, stars, controls) and **@react-three/postprocessing** (bloom, vignette)
+- Planet surface maps in `public/textures/` (optimized WebP) are from [Solar System Scope](https://www.solarsystemscope.com/textures/) (CC BY 4.0); glows, tails and the comet nucleus are generated procedurally
+- Mobile friendly: touch orbit controls, portrait-aware camera distances, bottom-sheet info panel
+- Deep links: `/?s=experience` opens a section directly
+
+## Develop
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+pnpm install
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Build
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+pnpm build
+pnpm start
+```
 
-## Learn More
+## Deploy
 
-To learn more about Next.js, take a look at the following resources:
+Set `NEXT_PUBLIC_SITE_URL` to the public URL (e.g. `https://example.com`). The canonical link, Open Graph/Twitter previews and the structured data resolve against it; without it they point at `localhost`. On Vercel the production domain is used automatically.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Text version
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+The full CV is also rendered as plain HTML (`src/components/TextCv.tsx`): always present for search engines and screen readers, shown on screen via the header's "Text version" button, `/?view=text`, or automatically when WebGL or JavaScript is unavailable.
 
-## Deploy on Vercel
+## Where things live
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `src/data/sections.ts` — all CV content, section colors, 3D positions and camera distances
+- `src/components/three/Scene.tsx` — canvas, camera rig (fly-to animation), controls, post-processing
+- `src/components/three/CelestialObjects.tsx` — the five procedural models
+- `src/components/three/textures.ts` — canvas-generated textures
+- `src/components/Overlay.tsx` — HUD, nav chips, info panel
+- `src/components/SectionBlocks.tsx` — renders section content (shared by the panel and the text version)
+- `public/cv/` — downloadable CV PDFs (EN, IT)
