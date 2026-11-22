@@ -170,6 +170,10 @@ export const SECTIONS: Section[] = [
           { label: "Scarica CV (IT)", href: "/cv/CV_Romanenko_IT.pdf", download: true },
         ],
       },
+      {
+        heading: "Privacy",
+        text: "This site collects anonymous usage statistics with PostHog, hosted in the EU: pages and sections viewed, CV downloads and contact-link clicks. No cookies or browser storage are used and no personal profiles are built. Questions or deletion requests: astricus@hotmail.com.",
+      },
     ],
   },
 ];

@@ -34,7 +34,7 @@ export default function TextCv({
           >
             <h2>{s.name}</h2>
             <p className="info-tagline">{s.tagline}</p>
-            <SectionBlocks blocks={s.blocks} />
+            <SectionBlocks blocks={s.blocks} location="text_version" />
           </section>
         ))}
       </div>

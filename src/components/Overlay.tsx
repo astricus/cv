@@ -1,6 +1,7 @@
 "use client";
 
 import { NAME, ROLE, SECTIONS } from "@/data/sections";
+import { track } from "@/lib/analytics";
 import SectionBlocks from "./SectionBlocks";
 
 export default function Overlay({
@@ -20,7 +21,12 @@ export default function Overlay({
         <h1>{NAME}</h1>
         <p>{ROLE}</p>
         <div className="hud-actions">
-          <a className="hud-btn" href="/cv/CV_Romanenko_EN.pdf" download>
+          <a
+            className="hud-btn"
+            href="/cv/CV_Romanenko_EN.pdf"
+            download
+            onClick={() => track("cv_downloaded", { lang: "en", location: "header" })}
+          >
             Download CV
           </a>
           <button className="hud-btn" onClick={onShowText}>
@@ -67,7 +73,7 @@ export default function Overlay({
             </button>
           </div>
           <div className="info-body">
-            <SectionBlocks blocks={section.blocks} />
+            <SectionBlocks blocks={section.blocks} location="panel" />
           </div>
         </aside>
       )}

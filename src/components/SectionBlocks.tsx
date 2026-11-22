@@ -1,11 +1,14 @@
 import type { ContentBlock } from "@/data/sections";
+import { trackLink, type LinkLocation } from "@/lib/analytics";
 
 /** Renders a section's content blocks. Shared by the 3D info panel and the text version. */
 export default function SectionBlocks({
   blocks,
+  location,
   headingLevel = 3,
 }: {
   blocks: ContentBlock[];
+  location: LinkLocation;
   headingLevel?: 3 | 4;
 }) {
   const H = `h${headingLevel}` as const;
@@ -38,6 +41,7 @@ export default function SectionBlocks({
               href={link.href}
               className="link-btn"
               download={link.download || undefined}
+              onClick={() => trackLink(link, location)}
               {...(link.href.startsWith("http") && {
                 target: "_blank",
                 rel: "noopener noreferrer",

@@ -40,6 +40,8 @@ pnpm start
 
 Set `NEXT_PUBLIC_SITE_URL` to the public URL (e.g. `https://example.com`). The canonical link, Open Graph/Twitter previews and the structured data resolve against it; without it they point at `localhost`. On Vercel the production domain is used automatically.
 
+Analytics (PostHog EU, cookieless) is sent through `/ingest`, a rewrite in `next.config.ts`, so it needs a Next.js server or Vercel — not a static export.
+
 ## Text version
 
 The full CV is also rendered as plain HTML (`src/components/TextCv.tsx`): always present for search engines and screen readers, shown on screen via the header's "Text version" button, `/?view=text`, or automatically when WebGL or JavaScript is unavailable.
