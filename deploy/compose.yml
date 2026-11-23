@@ -1,0 +1,24 @@
+# Runs on the server in ~/portfolio (copied there once, see deploy/README.md).
+services:
+  portfolio:
+    image: ghcr.io/astricus/cv:${IMAGE_TAG:-latest}
+    container_name: portfolio
+    restart: unless-stopped
+    # only reachable from the server itself; the reverse proxy forwards to it
+    ports:
+      - "127.0.0.1:${PORTFOLIO_PORT:-3000}:3000"
+    read_only: true
+    tmpfs:
+      - /tmp
+      - /app/.next/cache:uid=1001,gid=1001
+    security_opt:
+      - no-new-privileges:true
+    deploy:
+      resources:
+        limits:
+          memory: 512m
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
+        max-file: "3"

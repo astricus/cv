@@ -1,0 +1,13 @@
+.git
+.github
+.next
+node_modules
+.env*
+.vercel
+.DS_Store
+*.log
+Dockerfile
+.dockerignore
+deploy
+README.md
+AGENTS.md
